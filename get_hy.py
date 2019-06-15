@@ -1,26 +1,5 @@
-import cv2
 import numpy as np
-
-
-def get_perc_inliers(Hy_temp, master_pts, slave_pts, threshold):
-    total_pts = len(master_pts)
-    # print(total_pts)
-    y = np.ones(total_pts).reshape(total_pts, 1)
-    # print(y.shape)
-    # print(master_pts.shape)
-    master_pts = np.concatenate((master_pts, y), axis=1)
-    slave_pts = np.concatenate((slave_pts, y), axis=1)
-    slave_pts_T = np.transpose(slave_pts)
-    # print(slave_pts_T[:, 0])
-    tranformed_slave_T = np.matmul(Hy_temp, slave_pts_T)
-    tranformed_slave = np.transpose(tranformed_slave_T)
-    tranformed_slave = tranformed_slave/(tranformed_slave[:, 2].reshape(total_pts, 1))
-    # print(tranformed_slave)
-    vertical_error = np.abs(master_pts[:, 1] - tranformed_slave[:, 1])
-    # print(sum(vertical_error < threshold))
-    inliers_perc = sum(vertical_error < threshold)/(total_pts)
-
-    return inliers_perc
+from metrics import get_vert_align_acc
 
 
 def get_temp_hy(master_pts, slave_pts):
@@ -55,7 +34,7 @@ def get_best_hy(master_pts, slave_pts, num_trials, sample_size, threshold = 1):
         # print(slave_pts[0:3])
         Hy_temp = get_temp_hy(ran_samples_master, ran_samples_slave)
         # print(Hy_temp.shape)
-        perc_inliers = get_perc_inliers(Hy_temp, master_pts, slave_pts, threshold)
+        perc_inliers = get_vert_align_acc(Hy_temp, master_pts, slave_pts, threshold)
 
         if perc_inliers > max_perc_inliers:
             max_perc_inliers = perc_inliers

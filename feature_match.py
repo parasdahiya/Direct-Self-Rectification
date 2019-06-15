@@ -24,7 +24,7 @@ def get_matching_inliers(img_master, img_slave, show_matches = True):
     print("Interest points after RANSAC - Inliers: ", len(inliers))
 
     if show_matches:
-        img3 = cv2.drawMatchesKnn(img_master, kp1, img_slave, kp2, inliers[9:10], None, flags=2)
+        img3 = cv2.drawMatchesKnn(img_master, kp1, img_slave, kp2, inliers, None, flags=2)
         cv2.imshow('Image', img3)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
