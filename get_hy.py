@@ -14,7 +14,7 @@ def get_perc_inliers(Hy_temp, master_pts, slave_pts, threshold):
     # print(slave_pts_T[:, 0])
     tranformed_slave_T = np.matmul(Hy_temp, slave_pts_T)
     tranformed_slave = np.transpose(tranformed_slave_T)
-    # tranformed_slave = tranformed_slave/(tranformed_slave[:, 2].reshape(total_pts, 1))
+    tranformed_slave = tranformed_slave/(tranformed_slave[:, 2].reshape(total_pts, 1))
     # print(tranformed_slave)
     vertical_error = np.abs(master_pts[:, 1] - tranformed_slave[:, 1])
     # print(sum(vertical_error < threshold))
