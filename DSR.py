@@ -3,6 +3,7 @@ import numpy as np
 from feature_match import get_matching_inliers
 from get_hy import get_best_hy
 from get_hs import get_hs
+from get_hk import get_hk
 
 
 width = 720
@@ -23,7 +24,11 @@ Hy, PAP_acc = get_best_hy(master_pts, slave_pts, num_trials, sample_size, thresh
 print("Score :", PAP_acc)
 
 Hs = get_hs(Hy, width, height)
-print(Hs)
+H_temp = np.matmul(Hs, Hy)
+Hk = get_hk(H_temp, master_pts, slave_pts)
+H = np.matmul(Hk, H_temp)
+print(H)
+# print(Hs)
 
 
 
