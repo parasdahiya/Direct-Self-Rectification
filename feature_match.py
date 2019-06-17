@@ -26,8 +26,8 @@ def get_matching_inliers(img_master, img_slave, show_matches = True):
     if show_matches:
         img3 = cv2.drawMatchesKnn(img_master, kp1, img_slave, kp2, inliers, None, flags=2)
         cv2.imshow('Image', img3)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
     master_pts = np.float32([kp1[m.queryIdx].pt for [m] in inliers])
     slave_pts = np.float32([kp2[m.trainIdx].pt for [m] in inliers])

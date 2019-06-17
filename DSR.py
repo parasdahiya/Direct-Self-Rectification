@@ -16,7 +16,7 @@ img_slave = cv2.imread('image1_s.png', cv2.IMREAD_GRAYSCALE)
 img_master = cv2.resize(img_master, (720, 960))
 img_slave = cv2.resize(img_slave, (720, 960))
 
-master_pts, slave_pts = get_matching_inliers(img_master, img_slave, show_matches=False)
+master_pts, slave_pts = get_matching_inliers(img_master, img_slave, show_matches=True)
 
 num_trials = 200
 sample_size = 20
@@ -39,10 +39,11 @@ nvd_error = get_NVD(H, width, height)
 print("Vertical Alignment Accuracy (PAP) with pixel threshold of 1: {0}, 2:{1}, 3: {2}".format(pap1,pap2,pap3))
 print("Geometric distortion error (NVD): ", nvd_error)
 
-# warped_img = cv2.warpPerspective(img_slave, H, (800, 1000))
+warped_img = cv2.warpPerspective(img_slave, H, (800, 1000))
 
+cv2.imshow('img', warped_img)
 # plt.subplot(121),plt.imshow(img_master, cmap='gray'),plt.title('Input')
 # plt.subplot(122),plt.imshow(warped_img, cmap='gray'),plt.title('Output')
 # plt.show()
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+cv2.waitKey(0)
+cv2.destroyAllWindows()
