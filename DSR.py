@@ -22,11 +22,15 @@ num_trials = 200
 sample_size = 20
 threshold = 1
 
+## Vertical alignment matrix
 Hy, PAP_acc = get_best_hy(master_pts, slave_pts, num_trials, sample_size, threshold)
 print("Score :", PAP_acc)
 
+## Shearing matrix alignment
 Hs = get_hs(Hy, width, height)
 H_temp = np.matmul(Hs, Hy)
+
+## Horizontal alignement
 Hk = get_hk(H_temp, master_pts, slave_pts)
 H = np.matmul(Hk, H_temp)
 # print(H)
